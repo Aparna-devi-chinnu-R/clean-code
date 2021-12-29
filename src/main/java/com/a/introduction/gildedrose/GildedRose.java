@@ -1,20 +1,22 @@
 package com.a.introduction.gildedrose;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 class GildedRose {
 	
-	Item[] items;
+	List<Item> items;
 
-	public GildedRose(Item[] items) {
+	public GildedRose(List<Item> items) {
 		this.items = items;
 	}
 
 	public static void main(String[] args) {
 
-		Item[] items = new Item[] { 
-							new Item("Default Item", 10, 20)
-					   };
+		List<Item> items = new ArrayList<>();
+		Item item = new Item("Default Item", 10, 20);
+		items.add(item);
 
 		GildedRose app = new GildedRose(items);
 
@@ -25,60 +27,60 @@ class GildedRose {
 	}
 
 	public void updateQuality() {
-		for (int i = 0; i < items.length; i++) {
-			if (items[i].name != "Aged Brie" && items[i].name != "Backstage passes to a TAFKAL80ETC concert") {
-				if (items[i].quality > 0) {
-					if (items[i].name != "Sulfuras, Hand of Ragnaros") {
-						items[i].quality = items[i].quality - 1;
+		for (int i = 0; i < items.size(); i++) {
+			if (items.get(i).getName() != "Aged Brie" && items.get(i).getName() != "Backstage passes to a TAFKAL80ETC concert") {
+				if (items.get(i).getQuality() > 0) {
+					if (items.get(i).getName() != "Sulfuras, Hand of Ragnaros") {
+						items.get(i).setQuality(items.get(i).getQuality() - 1);
 					}
 				}
 			} else {
-				// This part handles the items for which quality can increase
+				// This part handles the items for which getQuality() can increase
 				// "Backstage passes to a TAFKAL80ETC concert" and "Aged Brie"
 
-				if (items[i].quality < 50) {
-					items[i].quality = items[i].quality + 1;
+				if (items.get(i).getQuality() < 50) {
+					items.get(i).setQuality(items.get(i).getQuality() + 1);
 
-					if (items[i].name == "Backstage passes to a TAFKAL80ETC concert") {
-						if (items[i].sellIn < 11) {
-							if (items[i].quality < 50) {
-								items[i].quality = items[i].quality + 1;
+					if (items.get(i).getName() == "Backstage passes to a TAFKAL80ETC concert") {
+						if (items.get(i).getSellIn() < 11) {
+							if (items.get(i).getQuality() < 50) {
+								items.get(i).setQuality(items.get(i).getQuality() + 1);
 							}
 						}
 
-						if (items[i].sellIn < 6) {
-							if (items[i].quality < 50) {
-								items[i].quality = items[i].quality + 1;
+						if (items.get(i).getSellIn() < 6) {
+							if (items.get(i).getQuality() < 50) {
+								items.get(i).setQuality(items.get(i).getQuality() + 1);
 							}
 						}
 					}
 				}
 			}
 
-			// Everything except for Sulfuras the sellIn Decreases
-			if (items[i].name != "Sulfuras, Hand of Ragnaros") {
-				items[i].sellIn = items[i].sellIn - 1;
+			// Everything except for Sulfuras the getSellIn() Decreases
+			if (items.get(i).getName() != "Sulfuras, Hand of Ragnaros") {
+				items.get(i).setSellIn(items.get(i).getSellIn() - 1);
 			}
 
-			if (items[i].sellIn < 0) {
-				if (items[i].name != "Aged Brie") {
+			if (items.get(i).getSellIn() < 0) {
+				if (items.get(i).getName() != "Aged Brie") {
 
-					if (items[i].name != "Backstage passes to a TAFKAL80ETC concert") {
-						if (items[i].quality > 0) {
-							if (items[i].name != "Sulfuras, Hand of Ragnaros") {
-								items[i].quality = items[i].quality - 1;
+					if (items.get(i).getName() != "Backstage passes to a TAFKAL80ETC concert") {
+						if (items.get(i).getQuality() > 0) {
+							if (items.get(i).getName() != "Sulfuras, Hand of Ragnaros") {
+								items.get(i).setQuality(items.get(i).getQuality() - 1);
 							}
 						}
 					} else {
 						// For Backstage passes with sellin less than zero
-						// quality is set to zero
-						items[i].quality = 0;
+						// getQuality() is set to zero
+						items.get(i).setQuality(0);
 					}
 				} else {
-					// For Aged Brie below 50 quality increases actually by 2
+					// For Aged Brie below 50 getQuality() increases actually by 2
 					// In the previous line
-					if (items[i].quality < 50) {
-						items[i].quality = items[i].quality + 1;
+					if (items.get(i).getQuality() < 50) {
+						items.get(i).setQuality(items.get(i).getQuality() + 1);
 					}
 				}
 			}
@@ -87,7 +89,7 @@ class GildedRose {
 
 	@Override
 	public String toString() {
-		return Arrays.toString(items);
+		return items.toString();
 	}
 
 }
