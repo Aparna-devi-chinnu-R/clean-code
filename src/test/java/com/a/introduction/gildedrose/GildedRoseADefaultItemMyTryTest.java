@@ -31,7 +31,7 @@ public class GildedRoseADefaultItemMyTryTest {
 	*    4. Extractions lines into small methods
 	* */
 	@Test
-	public void testUpdateQualityDefault1() {
+	public void shouldReduceTheQualityByOneForNotExpiredSellIn() {
 		GildedRose app = createGildedRoseWithItem(DEFAULT_ITEM, NOT_EXPIRED_SELL_IN, INITIAL_QUALITY);
 		
 		app.updateQuality();
@@ -41,14 +41,6 @@ public class GildedRoseADefaultItemMyTryTest {
 		assertItem(expectedItem, actualItem);
 	}
 
-	private GildedRose createGildedRoseWithItem(String itemName, int sellIn, int quality) {
-		Item item = new Item(itemName, sellIn, quality); // Here we changed to constant because for better readability
-		List<Item> items = new ArrayList<>();
-		items.add(item);
-		return new GildedRose(items);
-	}
-
-
 	/**
 	 * Method to test the variation in quality of the item for the non expired
 	 * Item.
@@ -57,7 +49,7 @@ public class GildedRoseADefaultItemMyTryTest {
 	 * 
 	 */
 	@Test
-	public void testUpdateQualityForExpiredItem() {
+	public void shouldReduceQualityByTwoForExpiredSellIn() {
 		GildedRose app = createGildedRoseWithItem(DEFAULT_ITEM, NEGATIVE_SELL_IN, INITIAL_QUALITY);
 
 		app.updateQuality();
@@ -72,4 +64,12 @@ public class GildedRoseADefaultItemMyTryTest {
 		assertEquals(expectedItem.getSellIn(), actualItem.getSellIn());
 		assertEquals(expectedItem.getQuality(), actualItem.getQuality());
 	}
+	private GildedRose createGildedRoseWithItem(String itemName, int sellIn, int quality) {
+		Item item = new Item(itemName, sellIn, quality); // Here we changed to constant because for better readability
+		List<Item> items = new ArrayList<>();
+		items.add(item);
+		return new GildedRose(items);
+	}
+
+
 }
